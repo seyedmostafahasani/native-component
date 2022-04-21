@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { DeviceEventEmitter, StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { NativeList } from './nativeModules/list';
 import { Product } from './types';
@@ -11,15 +11,30 @@ const styles = StyleSheet.create({
 
 const App = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const getProduct = async () => {
+    setRefreshing(true);
+    try {
+      const response = await axios.get("https://dummyjson.com/products");
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log({ error })
+    }
+    setRefreshing(false);
+  }
 
   useEffect(() => {
-    axios.get("https://dummyjson.com/products").then(response => {
-      setProducts(response.data.products);
-    }).catch(error => console.log({ error }))
+    getProduct();
+    DeviceEventEmitter.addListener("refreshFeed", () => getProduct());
+
+    return () => {
+      DeviceEventEmitter.removeAllListeners();
+    }
   }, [])
 
   return (
-    <NativeList data={products} style={styles.full} />
+    <NativeList data={products} refreshing={refreshing} style={styles.full} />
   );
 };
 

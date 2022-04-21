@@ -3,9 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<com.nativemodule.modules.list.CustomRecyclerView
-    android:id="@+id/listView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nativemodule.modules.list.CustomRecyclerView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

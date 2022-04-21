@@ -26,4 +26,9 @@ public class ListViewManager extends SimpleViewManager<ListView> {
     public void setData(ListView view, ReadableArray data) {
         view.setData(data);
     }
+
+    @ReactProp(name = "refreshing")
+    public void setRefreshing(ListView view, boolean refreshing) {
+        view.setRefreshing(refreshing);
+    }
 }
