@@ -1,6 +1,6 @@
 import { DeviceEventEmitter, StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { NativeList } from './nativeModules/list';
+import { NativeList } from './nativeComponents/list';
 import { Product } from './types';
 import axios from 'axios';
 const styles = StyleSheet.create({
